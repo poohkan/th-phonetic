@@ -51,7 +51,7 @@ function InputSound($payang,$cType,$vType,$sType)
 {
 
 //$VCh = "/\+i+/";
-$VCh = "/\a;|i;|v;|u;|e;|x;|aj|o;|@;|u;a|aw|#;|i;a|v;a|u;a|am/";
+$VCh = "(a;|i;|v;|u;|e;|x;|aj|o;|@;|u;a|aw|#;|i;a|v;a|u;a|am)";
 //preg_match("a;|i;|v;|u;|e;|x;|aj|o;|@;|u;a|aw|#;|i;a|v;a|u;a|am",$payang,$tt);
 //print_r($tt);
 	switch($cType){
@@ -77,21 +77,22 @@ $VCh = "/\a;|i;|v;|u;|e;|x;|aj|o;|@;|u;a|aw|#;|i;a|v;a|u;a|am/";
 	  			break;
 	  		}
 	  case "Low" : {
+	  						//print $vType;
 	    					if($vType == 'VnR') {   
 	  									if($sType == '1') { $Npayang = $payang."^1"; }
 										else if($sType == '2') { $Npayang = $payang."^3"; }
 										else if($sType == '3') { $Npayang = $payang."^4"; }
 							} else
 							{
-								//print $payang;
+								//print iconv("tis-620","utf-8",$payang)."<br>";
 								 if(!preg_match($VCh,$payang))
 								 {
-								 //	print "สั้น";
+								// print "sh";
 								 	  if($sType == '2') { $Npayang = $payang."^3"; }
 										else if($sType == '1') { $Npayang = $payang."^4"; }
 								 }
 								 else {
-								 	//print "ยาว";
+								 	//print "ln";
 								 		if($sType == '1') { $Npayang = $payang."^3"; }
 										else if($sType == '3') { $Npayang = $payang."^4"; }
 								 }
