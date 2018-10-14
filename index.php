@@ -779,7 +779,8 @@ $CountP = strlen($thword);
 					  $ReadCf = $thword[4]; // ตัวสะกดในตำแหน่งที่ 3
 					  $ReadVwc = $thword[0].$thword[4];  // สระหน้า + สระหลัง =  สระเกิน
 					 // print iconv("tis-620","utf-8",$ReadVwc)."<br>";
-					  $ReadVwc2 = $thword[0].$thword[3].$thword[4]; // สระหน้า + สระหลัง =  สระเกิน 3 ตำแหน่ง สำหรับวรรณยุกต์ตำแหน่งที่2
+					  $ReadVwc2 = $thword[0].$thword[3].$thword[4]; // สระหน้า + สระหลัง =  สระเกิน 3 ตำแหน่ง สำหรับวรรณยุกต์ตำแหน่งที่2  
+					  //print iconv("tis-620","utf-8",$ReadVwc2)."<br>";
 					  $ReadVwc3 = $thword[0].$thword[2].$thword[4]; // สระหน้า + สระหลัง =  สระเกิน 3 ตำแหน่ง สำหรับวรรณยุกต์ตำแหน่งที่3
   					  $ReadVwc4 = $thword[0].$thword[2].$thword[3]; // สระหน้า + สระหลัง =  สระเกิน 3 ตำแหน่ง ไม่มีวรรณยุกต์
 					  $ReadVwc5 = $thword[2].$thword[4]; // สระ ัว มีวรรณยุกต์
@@ -812,6 +813,7 @@ $CountP = strlen($thword);
 								 if(($thword[4] == 'ย')||($thword[4] == 'อ')||($thword[4] == 'ะ'))
 								 {
 								 		//print "5.3.1<br>";
+								 		//print strtr($ReadVwc2,$Vw2)."<br>";
 										$payang= strtr($ReadCc,$Cc).strtr($ReadVwc2,$Vw2);
 										$cType = strtr($ReadCc,$TriyangC);
 								 		$vType = strtr($ReadVwc2,$VnT);
@@ -933,24 +935,51 @@ $CountP = strlen($thword);
 
 	  break;}
 	 case 6: { 
+	 				 
+	 				 // print "6"."<br>";;
 	 				  $ReadCc = $thword[1].$thword[2];
 					  $ReadTn1 = $thword[3];  // วรรณยุกต์ในตำแหน่งที่ 3
+					 // print  iconv( 'TIS-620', 'UTF-8',$ReadTn1)."<br>";
 					  $ReadTn2 = $thword[4];  // วรรณยุกต์ในตำแหน่งที่ 4
+					//  print  iconv( 'TIS-620', 'UTF-8',$ReadTn2)."<br>";
 					  $ReadCf = $thword[5]; // ตัวสะกดในตำแหน่งที่ 5
+					//  print  iconv( 'TIS-620', 'UTF-8',$ReadCf)."<br>";
+					//  print "Cf = ".$Cf[$ReadCf]."<br>";
 					  $ReadVwc = $thword[0].$thword[3].$thword[4]; // สระหน้า + สระหลัง =  สระเกิน 3 ตำแหน่ง สำหรับวรรณยุกต์ตำแหน่งที่2
+					  $ReadVwc1 = $thword[0].$thword[3]; 		// สระหน้า + สระบน =  สระเกิน 3 ตำแหน่ง สำหรับวรรณยุกต์ตำแหน่งที่2
+  					  //print  iconv( 'TIS-620', 'UTF-8',$ReadVwc)."<br>";
   					  $ReadVwc2 = $thword[0].$thword[3].$thword[5]; // สระหน้า + สระหลัง =  สระเกิน 3 ตำแหน่ง สำหรับวรรณยุกต์ตำแหน่งที่2
+					 //print  iconv( 'TIS-620', 'UTF-8',$ReadVwc2)."<br>";
 					  $ReadVwc3 = $thword[0].$thword[2].$thword[4]; // สระหน้า + สระหลัง =  สระเกิน 3 ตำแหน่ง สำหรับวรรณยุกต์ตำแหน่งที่3
+  					//  print  iconv( 'TIS-620', 'UTF-8',$ReadVwc3)."<br>";
   					  $ReadVwc4 = $thword[0].$thword[2].$thword[4].$thword[5]; // สระหน้า + สระหลัง =  สระเกิน 3 ตำแหน่ง ไม่มีวรรณยุกต์
+					//  print  iconv( 'TIS-620', 'UTF-8',$ReadVwc4)."<br>";
 					  if(isset($Cc[$ReadCc]))
 					  {
 					    
-						if(isset($Tn[$ReadTn2]))  // มีวรรณยุกต์ ที่ ตำแหน่งที่ 3
+						if(isset($Tn[$ReadTn2]))  // มีวรรณยุกต์ ที่ ตำแหน่งที่ 4  เคลิ้ม เครื้อ
 							{ 
 								//print "6.1<br>";
-										$payang= strtr($ReadCc,$Cc).strtr($ReadVwc2,$Vw2);
+								if(($thword[5] == 'ย')||($thword[5] == 'อ')||($thword[5] == 'ะ'))
+								 {
+									//	print "6.1.1<br>";   // มีสระหลัง
+									//	print strtr($ReadVwc2,$Vw2)."<br>";		 		
+								 		$payang= strtr($ReadCc,$Cc).strtr($ReadVwc2,$Vw2);
+									//	print $payang;
 										$cType = strtr($ReadCc,$TriyangC);
 								 		$vType = strtr($ReadVwc2,$VnT);
 										$sType = strtr($thword[4],$Tn);
+								 }
+								else if(isset($Cf[$ReadCf]))
+								 {
+										//print "6.1.2<br>";   // มีตัวสะกด
+										$payang= strtr($ReadCc,$Cc).strtr($ReadVwc1,$Vw2).strtr($thword[5],$Cf);
+										//print $payang;
+										$cType = strtr($ReadCc,$TriyangC);
+								 		$vType = strtr($ReadVwc1,$VnT);
+										$sType = strtr($thword[4],$Tn);
+								 }
+
 							} else  // ไม่มีวรรณยุกต์
 							{
 							 	//print "6.2<br>";
