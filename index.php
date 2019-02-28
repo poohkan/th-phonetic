@@ -164,9 +164,9 @@ $Cf= array('ก'=>'=k','ข' =>'=k', 'ฃ'  =>'=k','ค' =>'=k', 'ฅ' =>'=k', 'ฆ' =>'=k',
 //
 $Tn = array('่'=>'2','้'=>'3','๊'=>'4','๋'=>'5');
 
-$run = array('ก์','ข์','ค์','จ์','ฉ์','ช์','ซ์','ฆ์','ง์','ฌ์','ญ์','ฎ์','ฏ์','ฐ์','ฒ์','ฑ์','ณ์','ด์','ต์','ถ์','ท์','ธ์','บ์','ป์','ผ์','ฝ์','พ์','ฟ์','ภ์','ม์','ย์','น์','ร์','ล์','ว์','ส์','ศ์','ษ์','ฬ์','อ์','ทร์','ธิ์','ดิ์','ธิุ์','ธุ์');
+$karun = array('ก์','ข์','ค์','จ์','ฉ์','ช์','ซ์','ฆ์','ง์','ฌ์','ญ์','ฎ์','ฏ์','ฐ์','ฒ์','ฑ์','ณ์','ด์','ต์','ถ์','ท์','ธ์','บ์','ป์','ผ์','ฝ์','พ์','ฟ์','ภ์','ม์','ย์','น์','ร์','ล์','ว์','ส์','ศ์','ษ์','ฬ์','อ์','ทร์','ธิ์','ดิ์','ธิุ์','ธุ์','ตร์','ห์');
 
-$thword = str_replace($run,"",$thword);
+$thword = str_replace($karun,"",$thword);
 
 $thword = str_replace("ฤา","รือ",$thword);
 $thword = str_replace("ฤ","รึ",$thword);
@@ -175,6 +175,7 @@ $thword = str_replace("ฤ","รึ",$thword);
 //print $thword."<br>";
 $thword = str_replace("รรม","ัม",$thword);
 $thword = str_replace("รรณ","ัน",$thword);
+$thword = str_replace("รรน","ัน",$thword);
 $thword = str_replace("รร","ัน",$thword);
 
 
@@ -546,7 +547,7 @@ $CountP = strlen($thword);
 													$cType = strtr($thword[1],$Triyang);
 								 					$vType = strtr($thword[3],$VnT);*/
 								 					//$payang=strtr($thword[1],$Cs).strtr($thword[2],$Vw).strtr($thword[3],$Cf);
-								 					if($thword[3] == 'อ')
+								 					if(($thword[3] == 'อ')||($thword[3] == 'ย'))
 								 					{ 
 								 					  $ReadVwc22 = $ReadVwc2.$thword[3];
 								 					  $payang=strtr($thword[1],$Cs).strtr($ReadVwc22,$Vw2);
@@ -641,9 +642,9 @@ $CountP = strlen($thword);
 								 						$vType = strtr($thword[3],$VnT);
 														$sType = "1";
 													}
-													else
-								                     {
-											    	//print "4.7.2<br>";
+													
+								                    else {
+											    	//print "4.7.3<br>";
 													$payang=strtr($thword[1],$Cs).strtr($ReadVw,$Vw2);
 													$cType = strtr($thword[1],$Triyang);
 								 					$vType = strtr($ReadVw,$VnT);
@@ -661,7 +662,8 @@ $CountP = strlen($thword);
 					 			 $ReadTn2 = $thword[3];  // วรรณยุกต์ในตำแหน่งที่ 3
 					 			 $ReadCf = $thword[3];    // ตัวสะกดในตำแหน่งที่ 3
 								 $ReadVwc5 = $thword[2].$thword[3];
-	 
+	 							 $ReadVwc6 = $thword[1].$thword[2].$thword[3]; // สระ ัวะ  ไม่มีวรรณยุกต์
+					 			// print "BBB";
 								if(isset($Cc[$ReadCc]))   // อักษรนำ ควบกล้ำ
 								 {
 							 		 if(isset($Tn[$ReadTn1]))  // วรรณยุกต์ในตำแหน่งที่ 2
@@ -740,6 +742,19 @@ $CountP = strlen($thword);
 								  //print $thword;
 								   $ReadTn1 = $thword[1];
 								   $ReadTn2 = $thword[2];
+								  // print "CCC";
+								  if(isset($Vw[$ReadVwc6]))   // สระ ัวะ
+									{
+										//print "4.152<br>";
+										$payang= strtr($thword[0],$Cs).strtr($ReadVwc6,$Vw2);
+										$cType = strtr($thword[0],$Triyang);
+										$vType = strtr($ReadVwc6,$VnT);
+										//$vType = "VnR";
+										//$sType = strtr($ReadTn1,$Tn);
+									
+										$sType = 1;
+									}
+									else
 								 	if(isset($Tn[$ReadTn1])) //พบสระในตำแหน่งที่ 2
 									{
 										//print "4.14<br>";
@@ -760,8 +775,9 @@ $CountP = strlen($thword);
 										$sType = strtr($thword[2],$Tn);
 										}
 										else
+													
 										{
-										//print "4.152<br>";
+										//print "4.153<br>";
 										$payang= strtr($thword[0],$Cs).strtr($thword[1],$Vw).strtr($thword[3],$Cf);
 										$cType = strtr($thword[0],$Triyang);
 								 		$vType = strtr($thword[3],$VnT);
